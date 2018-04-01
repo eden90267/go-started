@@ -38,7 +38,7 @@ func main() {
   fmt.Println("Hello World!!")
 
   if a > 1 {
-	fmt.Println(" a > 1")
+    fmt.Println(" a > 1")
   }
 }
 ```
@@ -50,7 +50,7 @@ func main() {
 package main
 
 func helloworld() string {
-	return "Hello World"
+    return "Hello World"
 }
 ```
 
@@ -61,7 +61,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Print(helloworld())
+    fmt.Print(helloworld())
 }
 ```
 
@@ -78,7 +78,7 @@ package 必須都是同一名稱：main
 package hello
 
 func HelloWorld() string {
-	return "Hello World"
+    return "Hello World"
 }
 ```
 
@@ -87,14 +87,14 @@ func HelloWorld() string {
 package main
 
 import (
-	"fmt" // GOROOT 的 src 目錄底下
+    "fmt" // GOROOT 的 src 目錄底下
 
-	"github.com/eden90267/go-first/helloworld" // 外部引用，但也很少用 subfolder，大多在同層目錄，看習慣 
-	//"./helloworld" // 也可以，但不是最好寫法，大多數都是上面的寫法
+    "github.com/eden90267/go-first/helloworld" // 外部引用，但也很少用 subfolder，大多在同層目錄，看習慣 
+    //"./helloworld" // 也可以，但不是最好寫法，大多數都是上面的寫法
 )
 
 func main() {
-	fmt.Print(hello.HelloWorld())
+    fmt.Print(hello.HelloWorld())
 }
 ```
 
@@ -107,7 +107,7 @@ func main() {
     package foo
     
     func HelloWorld() string {
-    	return "Hello World"
+        return "Hello World"
     }
     ```
 
@@ -116,13 +116,13 @@ func main() {
     package main
     
     import (
-    	"fmt"
+        "fmt"
     
-    	"github.com/eden90267/go-first/foo"
+        "github.com/eden90267/go-first/foo"
     )
     
     func main() {
-    	fmt.Print(foo.HelloWorld())
+        fmt.Print(foo.HelloWorld())
     }
     ```
 
@@ -132,13 +132,13 @@ func main() {
     package main
     
     import (
-    	"fmt"
+        "fmt"
     
-    	bar "github.com/eden90267/go-first/foo"
+        bar "github.com/eden90267/go-first/foo"
     )
     
     func main() {
-    	fmt.Print(bar.HelloWorld())
+        fmt.Print(bar.HelloWorld())
     }
     ```
 
@@ -148,13 +148,13 @@ func main() {
     package main
     
     import (
-    	"fmt"
+        "fmt"
     
-    	. "github.com/eden90267/go-first/foo"
+        . "github.com/eden90267/go-first/foo"
     )
     
     func main() {
-    	fmt.Print(HelloWorld())
+        fmt.Print(HelloWorld())
     }
     ```
 
@@ -167,11 +167,11 @@ func main() {
     import "fmt"
     
     func init()  { // 所有 package 預設都會執行
-    	fmt.Println("foo init")
+        fmt.Println("foo init")
     }
     
     func HelloWorld() string {
-    	return "Hello foo"
+        return "Hello foo"
     }
     ```
 
@@ -182,11 +182,11 @@ func main() {
     import "fmt"
     
     func init()  {
-    	fmt.Println("bar init")
+        fmt.Println("bar init")
     }
     
     func HelloWorld() string {
-    	return "Hello bar"
+        return "Hello bar"
     }
     ```
 
@@ -195,13 +195,106 @@ func main() {
     package main
     
     import (
-    	"fmt"
-    	_ "github.com/eden90267/go-first/bar" // 只要用 init 方式 (global manager 用)
-    	_ "github.com/eden90267/go-first/foo"
+        "fmt"
+        _ "github.com/eden90267/go-first/bar" // 只要用 init 方式 (global manager 用)
+        _ "github.com/eden90267/go-first/foo"
     )
     
     func main() {
-    	//fmt.Print(HelloWorld())
-    	fmt.Println("Hello main")
+        //fmt.Print(HelloWorld())
+        fmt.Println("Hello main")
     }
     ```
+
+## 如何宣告 go 變數
+
+有三種方式
+
+### 第一種：var
+
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+)
+
+var foo string
+var bar int
+
+func main() {
+    foo = "Hello"
+    bar = 100
+    fmt.Println(foo)
+    fmt.Println(bar)
+    fmt.Println("Done!!")
+}
+```
+
+### 第二種：var 宣告多個變數名稱
+
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+)
+
+var (
+    foo string
+    bar int
+)
+
+func main() {
+    foo = "Hello"
+    bar = 100
+    fmt.Println(foo)
+    fmt.Println(bar)
+    fmt.Println("Done!!")
+}
+```
+
+or var 宣告多個變數直接指定值
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+var (
+    foo string = "Hello"
+    bar int = 100
+)
+
+func main() {
+    fmt.Println(foo)
+    fmt.Println(bar)
+    fmt.Println("Done!!")
+}
+```
+
+### `:=`
+
+代表從沒宣告過，直接指定值，type 會視給的值決定
+
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    foo := "Hello"
+    bar := 100
+    fmt.Println(foo)
+    fmt.Println(bar)
+    fmt.Println("Done!!")
+}
+```
+
